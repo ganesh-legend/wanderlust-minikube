@@ -8,7 +8,7 @@ COPY . .
 
 RUN npm i
 
-#RUN npm install vite
+RUN npm install vite
 
 EXPOSE 5173
 
