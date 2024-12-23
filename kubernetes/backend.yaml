@@ -21,7 +21,7 @@ spec:
           image: ganesh1326/wanderlust-backend:v1
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
@@ -33,7 +33,7 @@ spec:
   selector:
     app: backend
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 5000
+      targetPort: 5000
       protocol: TCP
       nodePort: 31100
