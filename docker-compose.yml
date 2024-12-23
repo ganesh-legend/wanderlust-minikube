@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+     mongodb:
+       container_name: wanderlust-mongodb
+       image: mongo:latest
+       ports:
+         - "27017:27017"
+       volumes:
+         - ./backend/data:/data
+
+     backend:
+       container_name: wanderlust-backend
+       build: ./backend
+       env_file:
+         - ./backend/.env.sample
+       ports:
+         - "5000:5000"
+       depends_on:
+         - mongodb
+
+     frontend:
+       container_name: wanderlust-frontend
+       build: ./frontend
+       env_file:
+         - ./frontend/.env.sample
+       ports:
+         - "5173:5173"
+
+     # redis is required to caching data. Basically backend takes data from redis file based database layer rather it taking from mongo database. 
+     # redis caching provides a powerful solution for optimising application performance by storing frequently accessed data in memory.
+     redis:
+       container_name: redis
+       restart: unless-stopped
+       image: redis:7.0.5-alpine
+       expose: 
+         - 6379
+       depends_on:
+         - mongodb
