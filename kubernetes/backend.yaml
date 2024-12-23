@@ -19,6 +19,7 @@ spec:
       containers:
         - name: backend
           image: ganesh1326/wanderlust-backend:v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---
